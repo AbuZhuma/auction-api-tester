@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Auction CRUD — Minimal UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="header__title">Минимальный CRUD интерфейс — Auction</h1>
+    <p class="header__subtitle">Базовый UI для тестирования API на
+      <code>https://auction-backend-mlzq.onrender.com</code>
+    </p>
+  </header>
+
+  <section class="api-config">
+    <label class="api-config__label">Base API URL</label>
+    <input id="baseUrl" class="api-config__input" type="text"
+      value="https://auction-backend-mlzq.onrender.com/api/v1" />
+  </section>
+
+  <main class="container">
+    <div class="card card--category">
+      <h2 class="card__title">Категории</h2>
+      <div class="card__form">
+        <label class="form__label">Создать категорию (name JSON)</label>
+        <input id="catName" class="form__input" placeholder='{"en":"Painting","ru":"Живопись","ky":"Сүрөт"}' />
+        <div class="form__buttons">
+          <button id="createCat" class="btn btn--primary">Создать</button>
+          <button id="refreshCats" class="btn btn--ghost">Обновить список</button>
+        </div>
+      </div>
+      <ul id="catsList" class="list list--categories"></ul>
+    </div>
+
+    <div class="card card--artist">
+      <h2 class="card__title">Артисты</h2>
+      <div class="card__form">
+        <label class="form__label">Создать артиста</label>
+        <input id="artistName" class="form__input" placeholder='{"en":"Picasso","ru":"Пикассо","ky":"Пикассо"}' />
+        <label class="form__label">Slug</label>
+        <input id="artistSlug" class="form__input" placeholder="picasso" />
+        <label class="form__label">Описание JSON</label>
+        <input id="artistDesc" class="form__input" placeholder="picasso" />
+        <label class="form__label">Id категории</label>
+        <input id="categoryId" class="form__input" placeholder='id' />
+        <label class="form__label">Фото</label>
+        <input id="artistPhoto" class="form__input form__input--file" type="file" accept="image/*" />
+        <div class="form__buttons">
+          <button id="createArtist" class="btn btn--primary">Создать</button>
+          <button id="refreshArtists" class="btn btn--ghost">Обновить</button>
+        </div>
+      </div>
+      <ul id="artistsList" class="list list--artists"></ul>
+    </div>
+
+    <div class="card card--lot">
+      <h2 class="card__title">Лоты</h2>
+      <div class="card__form">
+        <label class="form__label">Имя (JSON)</label>
+        <input id="lotName" class="form__input" placeholder='{"en":"Mona Lisa"}' />
+        <label class="form__label">Artist ID</label>
+        <input id="lotArtistId" class="form__input" placeholder="artist-id" />
+        <label class="form__label">Price</label>
+        <input id="lotPrice" class="form__input" type="number" value="1000" />
+        <label class="form__label">Category IDs (JSON массив)</label>
+        <input id="lotCategoryIds" class="form__input" placeholder='["uuid1","uuid2"]' />
+
+        <label class="form__label">Photo</label>
+        <input id="lotPhoto" class="form__input form__input--file" type="file" accept="image/*" />
+        <div class="form__buttons">
+          <button id="createLot" class="btn btn--primary">Создать лот</button>
+          <button id="refreshLots" class="btn btn--ghost">Обновить</button>
+        </div>
+      </div>
+      <ul id="lotsList" class="list list--lots"></ul>
+    </div>
+
+    <div class="card card--slider">
+      <h2 class="card__title">Слайдеры</h2>
+      <div class="card__form">
+        <label class="form__label">Order</label>
+        <input id="sliderOrder" class="form__input" type="number" value="1" />
+        <label class="form__label">Ссылка</label>
+        <input id="sliderLink" class="form__input" type="string" />
+        <label class="form__label">isActive</label>
+        <select id="sliderActive" class="form__input">
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <label class="form__label">Image</label>
+        <input id="sliderImage" class="form__input form__input--file" type="file" accept="image/*" />
+        <div class="form__buttons">
+          <button id="createSlider" class="btn btn--primary">Создать</button>
+          <button id="refreshSliders" class="btn btn--ghost">Обновить</button>
+        </div>
+      </div>
+      <ul id="slidersList" class="list list--sliders"></ul>
+    </div>
+
+    <div class="card card--log card--full">
+      <h2 class="card__title">Ответ сервера / логи</h2>
+      <pre id="log" class="log">Готово.</pre>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
