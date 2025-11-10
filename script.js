@@ -44,35 +44,35 @@ async function listCategories() {
 }
 
 async function createArtist() {
-  const nameRaw = $("artistName").value;
-  const slug = $("artistSlug").value;
-  const descRaw = $("artistDesc").value;
-  const file = $("artistPhoto").files[0];
-  const categoryId = $("categoryId")?.value;
+      const nameRaw = $("artistName").value;
+      const slug = $("artistSlug").value;
+      const descRaw = $("artistDesc").value;
+      const file = $("artistPhoto").files[0];
+      const categoryId = $("categoryId")?.value;
 
-  let name, desc;
-  try {
-    name = JSON.parse(nameRaw);
-    desc = descRaw ? JSON.parse(descRaw) : undefined;
-  } catch {
-    alert("Invalid JSON in name/description");
-    return;
-  }
+      let name, desc;
+      try {
+            name = JSON.parse(nameRaw);
+            desc = descRaw ? JSON.parse(descRaw) : undefined;
+      } catch {
+            alert("Invalid JSON in name/description");
+            return;
+      }
 
-  const fd = new FormData();
-  fd.append("name", JSON.stringify(name));
-  if (slug) fd.append("slug", slug);
-  if (desc) fd.append("description", JSON.stringify(desc));
-  if (file) fd.append("photo", file);
-  if (categoryId) fd.append("categoryId", categoryId); 
+      const fd = new FormData();
+      fd.append("name", JSON.stringify(name));
+      if (slug) fd.append("slug", slug);
+      if (desc) fd.append("description", JSON.stringify(desc));
+      if (file) fd.append("photo", file);
+      if (categoryId) fd.append("categoryId", categoryId);
 
-  const data = await fetch(base() + "/artists", {
-    method: "POST",
-    body: fd,
-  }).then((r) => r.json());
+      const data = await fetch(base() + "/artists", {
+            method: "POST",
+            body: fd,
+      }).then((r) => r.json());
 
-  log(data);
-  await listArtists();
+      log(data);
+      await listArtists();
 }
 
 async function listArtists() {
@@ -89,43 +89,50 @@ async function listArtists() {
 }
 
 async function createLot() {
-  const nameRaw = $("lotName").value;
-  const artistId = $("lotArtistId").value;
-  const price = $("lotPrice").value;
-  const file = $("lotPhoto").files[0];
-  const categoriesRaw = $("lotCategoryIds").value; // новое поле
+      const nameRaw = $("lotName").value;
+      const artistId = $("lotArtistId").value;
+      const price = $("lotPrice").value;
+      const file = $("lotPhoto").files;
+      const categoriesRaw = $("categoryIds").value;
+      const count = $("lotCount").value
 
-  let name;
-  try {
-    name = JSON.parse(nameRaw);
-  } catch {
-    alert("Invalid JSON for name");
-    return;
-  }
+      let name;
+      try {
+            name = JSON.parse(nameRaw);
+      } catch {
+            alert("Invalid JSON for name");
+            return;
+      }
 
-  let categoryIds;
-  try {
-    categoryIds = JSON.parse(categoriesRaw);
-    if (!Array.isArray(categoryIds)) throw new Error();
-  } catch {
-    alert('Invalid JSON for categoryIds (example: ["uuid1","uuid2"])');
-    return;
-  }
+      let categoryIds;
+      try {
+            categoryIds = JSON.parse(categoriesRaw);
+            if (!Array.isArray(categoryIds)) throw new Error();
+      } catch {
+            alert('Invalid JSON for categoryIds (example: ["uuid1","uuid2"])');
+            return;
+      }
 
-  const fd = new FormData();
-  fd.append("name", JSON.stringify(name));
-  if (artistId) fd.append("artistId", artistId);
-  if (price) fd.append("price", price);
-  if (file) fd.append("photos", file);
-  fd.append("categoryIds", JSON.stringify(categoryIds));
+      const fd = new FormData();
+      fd.append("name", JSON.stringify(name));
+      if (artistId) fd.append("artistId", artistId);
+      if (price) fd.append("price", price);
+      if (count) fd.append("count", count)
+      fd.append("categoryIds", JSON.stringify(categoryIds));
 
-  const data = await fetch(base() + "/lots", {
-    method: "POST",
-    body: fd,
-  }).then((r) => r.json());
+      if (file && file.length > 0) {
+            for (let i = 0; i < file.length; i++) {
+                  fd.append("photos", file[i]);
+            }
+      }
 
-  log(data);
-  await listLots();
+      const data = await fetch(base() + "/lots", {
+            method: "POST",
+            body: fd,
+      }).then((r) => r.json());
+
+      log(data);
+      await listLots();
 }
 
 async function listLots() {

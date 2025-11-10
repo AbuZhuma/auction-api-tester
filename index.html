@@ -66,11 +66,13 @@
         <input id="lotArtistId" class="form__input" placeholder="artist-id" />
         <label class="form__label">Price</label>
         <input id="lotPrice" class="form__input" type="number" value="1000" />
+        <label class="form__label">Count</label>
+        <input id="lotCount" class="form__input" type="number" value="10" />
         <label class="form__label">Category IDs (JSON массив)</label>
-        <input id="lotCategoryIds" class="form__input" placeholder='["uuid1","uuid2"]' />
+        <input id="categoryIds" class="form__input" placeholder='["uuid1","uuid2"]' />
 
         <label class="form__label">Photo</label>
-        <input id="lotPhoto" class="form__input form__input--file" type="file" accept="image/*" />
+        <input id="lotPhoto" class="form__input form__input--file" multiple type="file" accept="image/*" />
         <div class="form__buttons">
           <button id="createLot" class="btn btn--primary">Создать лот</button>
           <button id="refreshLots" class="btn btn--ghost">Обновить</button>
